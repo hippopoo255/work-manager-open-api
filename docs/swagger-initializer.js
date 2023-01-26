@@ -13,7 +13,7 @@ window.onload = function () {
         ],
         layout: "StandaloneLayout",
         queryConfigEnabled: false,
-        url: "/schema/openapi.app.yaml",
+        url: "/openapi.app.yaml",
       })
       
       //</editor-fold>

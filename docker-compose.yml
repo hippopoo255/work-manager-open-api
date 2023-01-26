@@ -7,8 +7,7 @@ services:
     volumes:
       - ./docs:/usr/share/nginx/html
     environment:
-      API_URL: ${SWAGGER_SPECIFICATION_URL:-/schema/openapi.app.yaml}
-      ENVIRONMENT: ${ENVIRONMENT:-stg}
+      API_URL: /openapi.app.yaml
     tty: true
     ports:
       - ${SWAGGER_UI_PORT:-18080}:8080
