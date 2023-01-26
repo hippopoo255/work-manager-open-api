@@ -5,9 +5,11 @@ services:
     image: swaggerapi/swagger-ui
     restart: always
     volumes:
-      - ./docs:/usr/share/nginx/html
+      - ./docs/dist/:/usr/share/nginx/html
+      - ./docs/openapi.app.yaml:/usr/share/nginx/html/openapi.app.yaml
+      - ./docs/openapi.admin.yaml:/usr/share/nginx/html/openapi.admin.yaml
     environment:
-      API_URL: /openapi.app.yaml
+      API_URL: ../openapi.app.yaml
     tty: true
     ports:
       - ${SWAGGER_UI_PORT:-18080}:8080
