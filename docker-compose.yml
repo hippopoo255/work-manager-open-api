@@ -6,8 +6,10 @@ services:
     restart: always
     volumes:
       - ./docs/dist/:/usr/share/nginx/html
-      - ./docs/openapi.app.yaml:/usr/share/nginx/html/openapi.app.yaml
-      - ./docs/openapi.admin.yaml:/usr/share/nginx/html/openapi.admin.yaml
+      - ./docs/openapi.app.stg.yaml:/usr/share/nginx/html/openapi.app.stg.yaml
+      - ./docs/openapi.admin.stg.yaml:/usr/share/nginx/html/openapi.admin.stg.yaml
+      - ./docs/openapi.app.prod.yaml:/usr/share/nginx/html/openapi.app.prod.yaml
+      - ./docs/openapi.admin.prod.yaml:/usr/share/nginx/html/openapi.admin.prod.yaml
     environment:
       API_URL: ../openapi.app.yaml
     tty: true
