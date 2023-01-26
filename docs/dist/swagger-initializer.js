@@ -1,6 +1,8 @@
 window.onload = function () {
   
       
+      
+      
       //<editor-fold desc="Changeable Configuration Block">
       window.ui = SwaggerUIBundle({
         "dom_id": "#swagger-ui",
@@ -18,6 +20,8 @@ window.onload = function () {
       })
       
       //</editor-fold>
+
+
 
 
 };

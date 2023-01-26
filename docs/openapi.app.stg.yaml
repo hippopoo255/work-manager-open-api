@@ -462,7 +462,7 @@ paths:
         type: mock
       operationId: optionsAuthorDailySchedule
     parameters: []
-  /author/meeting_record/recently:
+  /author/minutes/recently:
     get:
       parameters:
         - name: Authorization
@@ -488,7 +488,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/MeetingRecord'
+                  $ref: '#/components/schemas/Minutes'
         '401':
           description: Unauthorized
           headers:
@@ -519,7 +519,7 @@ paths:
         - job-support-authorizer: []
       x-amazon-apigateway-integration:
         httpMethod: GET
-        uri: '${alb_uri}/api/author/meeting_record/recently'
+        uri: '${alb_uri}/api/author/minutes/recently'
         responses:
           '401':
             statusCode: '401'
@@ -541,9 +541,9 @@ paths:
           integration.request.header.Origin: method.request.header.Origin
         passthroughBehavior: when_no_match
         type: http
-      operationId: getRecentAuthorMeetingRecord
+      operationId: getRecentAuthorMinutes
       description: return author daily schedule
-      summary: /author/meeting_record/recently-GET
+      summary: /author/minutes/recently-GET
     options:
       parameters: []
       responses:
@@ -583,8 +583,8 @@ paths:
           application/json: '{"statusCode": 200}'
         passthroughBehavior: when_no_match
         type: mock
-      summary: /author/meeting_record/recently-OPTIONS
-      operationId: optionsRecentAuthorMeetingRecord
+      summary: /author/minutes/recently-OPTIONS
+      operationId: optionsRecentAuthorMinutes
     parameters: []
   /author/task:
     get:
@@ -2973,7 +2973,7 @@ paths:
         type: mock
       summary: /meeting_place-OPTIONS
       operationId: optionsMeetingPlace
-  /meeting_record:
+  /minutes:
     get:
       responses:
         '200':
@@ -2990,7 +2990,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/MeetingRecordPage'
+                  $ref: '#/components/schemas/MinutesPage'
         '401':
           description: Unauthorized
           headers:
@@ -3019,7 +3019,7 @@ paths:
                 $ref: '#/components/schemas/ForbiddenError'
       x-amazon-apigateway-integration:
         httpMethod: GET
-        uri: '${alb_uri}/api/meeting_record'
+        uri: '${alb_uri}/api/minutes'
         responses:
           '401':
             statusCode: '401'
@@ -3049,9 +3049,9 @@ paths:
           integration.request.querystring.sort_key: method.request.querystring.sort_key
         passthroughBehavior: when_no_match
         type: http
-      operationId: getMeetingRecord
+      operationId: getMinutes
       description: return meeting record
-      summary: /meeting_record-GET
+      summary: /minutes-GET
       security:
         - job-support-authorizer: []
       parameters:
@@ -3137,12 +3137,12 @@ paths:
           application/json: '{"statusCode": 200}'
         passthroughBehavior: when_no_match
         type: mock
-      summary: /meeting_record-OPTIONS
-      operationId: optionsMeetingRecord
+      summary: /minutes-OPTIONS
+      operationId: optionsMinutes
     parameters: []
     post:
-      summary: /meeting_record-POST
-      operationId: postMeetingRecord
+      summary: /minutes-POST
+      operationId: postMinutes
       responses:
         '201':
           description: Created
@@ -3156,7 +3156,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MeetingRecord'
+                $ref: '#/components/schemas/Minutes'
         '401':
           description: Unauthorized
           headers:
@@ -3212,10 +3212,10 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MeetingRecordForm'
+              $ref: '#/components/schemas/MinutesForm'
       x-amazon-apigateway-integration:
         httpMethod: POST
-        uri: '${alb_uri}/api/meeting_record'
+        uri: '${alb_uri}/api/minutes'
         responses:
           '401':
             statusCode: '401'
@@ -3242,7 +3242,7 @@ paths:
           integration.request.header.Origin: method.request.header.Origin
         passthroughBehavior: when_no_match
         type: http
-  '/meeting_record/{id}':
+  '/minutes/{id}':
     get:
       parameters:
         - name: id
@@ -3264,7 +3264,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MeetingRecord'
+                $ref: '#/components/schemas/Minutes'
           headers:
             Access-Control-Allow-Origin:
               schema:
@@ -3313,7 +3313,7 @@ paths:
                 $ref: '#/components/schemas/NotFoundError'
       x-amazon-apigateway-integration:
         httpMethod: GET
-        uri: '${alb_uri}/api/meeting_record/{id}'
+        uri: '${alb_uri}/api/minutes/{id}'
         responses:
           '401':
             statusCode: '401'
@@ -3336,11 +3336,11 @@ paths:
           integration.request.path.id: method.request.path.id
         passthroughBehavior: when_no_match
         type: http
-      operationId: getMeetingRecordId
+      operationId: getMinutesId
       security:
         - job-support-authorizer: []
       description: return meeting record by id
-      summary: '/meeting_record/{id}-GET'
+      summary: '/minutes/{id}-GET'
     put:
       parameters:
         - name: id
@@ -3366,7 +3366,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MeetingRecord'
+                $ref: '#/components/schemas/Minutes'
           headers:
             Access-Control-Allow-Origin:
               schema:
@@ -3415,7 +3415,7 @@ paths:
                 $ref: '#/components/schemas/InvalidError'
       x-amazon-apigateway-integration:
         httpMethod: PUT
-        uri: '${alb_uri}/api/meeting_record/{id}'
+        uri: '${alb_uri}/api/minutes/{id}'
         responses:
           '401':
             statusCode: '401'
@@ -3444,7 +3444,7 @@ paths:
           integration.request.path.id: method.request.path.id
         passthroughBehavior: when_no_match
         type: http
-      operationId: putMeetingRecordId
+      operationId: putMinutesId
       security:
         - job-support-authorizer: []
       description: update meeting record
@@ -3452,7 +3452,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/MeetingRecordForm'
+              $ref: '#/components/schemas/MinutesForm'
         description: ''
     parameters:
       - schema:
@@ -3461,8 +3461,8 @@ paths:
         in: path
         required: true
     options:
-      summary: '/meeting_record/{id}-OPTIONS'
-      operationId: optionsMeetingRecordId
+      summary: '/minutes/{id}-OPTIONS'
+      operationId: optionsMinutesId
       responses:
         '200':
           description: OK
@@ -3498,8 +3498,8 @@ paths:
         passthroughBehavior: when_no_match
         type: mock
     delete:
-      summary: '/meeting_record/{id}-DELETE'
-      operationId: deleteMeetingRecordId
+      summary: '/minutes/{id}-DELETE'
+      operationId: deleteMinutesId
       responses:
         '200':
           description: OK
@@ -3513,7 +3513,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MeetingRecordPage'
+                $ref: '#/components/schemas/MinutesPage'
         '401':
           description: Unauthorized
           headers:
@@ -3595,7 +3595,7 @@ paths:
           name: only_me
       x-amazon-apigateway-integration:
         httpMethod: DELETE
-        uri: '${alb_uri}/api/meeting_record/{id}'
+        uri: '${alb_uri}/api/minutes/{id}'
         responses:
           '401':
             statusCode: '401'
@@ -3779,7 +3779,7 @@ paths:
           integration.request.header.Origin: method.request.header.Origin
         passthroughBehavior: when_no_match
         type: http
-  '/meeting_record/{id}/bookmark':
+  '/minutes/{id}/bookmark':
     put:
       parameters:
         - name: id
@@ -3805,7 +3805,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MeetingRecord'
+                $ref: '#/components/schemas/Minutes'
           headers:
             Access-Control-Allow-Origin:
               schema:
@@ -3854,7 +3854,7 @@ paths:
                 $ref: '#/components/schemas/InvalidError'
       x-amazon-apigateway-integration:
         httpMethod: PUT
-        uri: '${alb_uri}/api/meeting_record/{id}/bookmark'
+        uri: '${alb_uri}/api/minutes/{id}/bookmark'
         responses:
           '401':
             statusCode: '401'
@@ -3883,7 +3883,7 @@ paths:
           integration.request.path.id: method.request.path.id
         passthroughBehavior: when_no_match
         type: http
-      operationId: putMeetingRecordBookmark
+      operationId: putMinutesBookmark
       security:
         - job-support-authorizer: []
       description: bookmark meeting record
@@ -3896,7 +3896,7 @@ paths:
             schema:
               $ref: '#/components/schemas/Empty'
         description: ''
-      summary: '/meeting_record/{id}/bookmark-PUT'
+      summary: '/minutes/{id}/bookmark-PUT'
     parameters:
       - schema:
           type: string
@@ -3904,8 +3904,8 @@ paths:
         in: path
         required: true
     options:
-      summary: '/meeting_record/{id}/bookmark-OPTIONS'
-      operationId: optionMeetingRecordIBookmark
+      summary: '/minutes/{id}/bookmark-OPTIONS'
+      operationId: optionMinutesIBookmark
       responses:
         '200':
           description: OK
@@ -3941,8 +3941,8 @@ paths:
         passthroughBehavior: when_no_match
         type: mock
     post:
-      summary: '/meeting_record/{id}/bookmark-POST'
-      operationId: postMeetingRecordBookmark
+      summary: '/minutes/{id}/bookmark-POST'
+      operationId: postMinutesBookmark
       responses:
         '201':
           description: Created
@@ -3956,7 +3956,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MeetingRecord'
+                $ref: '#/components/schemas/Minutes'
         '401':
           description: Unauthorized
           headers:
@@ -4014,7 +4014,7 @@ paths:
               $ref: '#/components/schemas/Empty'
       x-amazon-apigateway-integration:
         httpMethod: POST
-        uri: '${alb_uri}/api/meeting_record/{id}/bookmark'
+        uri: '${alb_uri}/api/minutes/{id}/bookmark'
         responses:
           '401':
             statusCode: '401'
@@ -6835,6 +6835,33 @@ components:
         - given_name_kana
         - family_name
         - family_name_kana
+    Agenda:
+      title: Agenda
+      type: object
+      description: 議事録の議題
+      x-stoplight:
+        id: 6fca855d34c97
+      properties:
+        id:
+          type: integer
+        minutes_id:
+          type: integer
+        subject:
+          type: string
+        description:
+          type: string
+        created_by:
+          $ref: '#/components/schemas/User'
+        created_at:
+          $ref: '#/components/schemas/DateFormat'
+        updated_at:
+          $ref: '#/components/schemas/DateFormat'
+      required:
+        - id
+        - minutes_id
+        - subject
+        - description
+        - created_by
     AuthenticatedAdmin:
       title: AuthenticatedAdmin
       type: object
@@ -7716,15 +7743,17 @@ components:
           $ref: '#/components/schemas/DateFormat'
         updated_at:
           $ref: '#/components/schemas/DateFormat'
-    MeetingRecord:
-      title: MeetingRecord
-      description: ミーティングレコード
+    Minutes:
+      title: Minutes
+      description: 議事録
       type: object
+      x-stoplight:
+        id: b34984bce68f9
       properties:
         id:
           type: integer
           format: int64
-        recorded_by:
+        created_by:
           $ref: '#/components/schemas/User'
         meeting_date:
           $ref: '#/components/schemas/DateFormat'
@@ -7741,27 +7770,27 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/User'
-        decisions:
+        agendas:
           type: array
           items:
-            $ref: '#/components/schemas/MeetingDecision'
+            $ref: '#/components/schemas/Agenda'
         created_at:
           $ref: '#/components/schemas/DateFormat'
         updated_at:
           $ref: '#/components/schemas/DateFormat'
       required:
         - id
-        - recorded_by
+        - created_by
         - meeting_date
         - place
         - title
         - summary
         - members
-        - decisions
+        - agendas
         - created_at
         - updated_at
-    MeetingRecordForm:
-      title: MeetingRecordForm
+    MinutesForm:
+      title: MinutesForm
       description: 会議議事録投稿フォーム
       type: object
       properties:
@@ -7797,8 +7826,8 @@ components:
         - recorded_by
         - meeting_date
         - title
-    MeetingRecordPage:
-      title: MeetingRecordPage
+    MinutesPage:
+      title: MinutesPage
       description: 議事録一覧のページ（ページャつき）
       type: object
       x-examples:
@@ -7843,7 +7872,7 @@ components:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/MeetingRecord'
+            $ref: '#/components/schemas/Minutes'
         first_page_url:
           description: 1ページ目のURL
           type: string
@@ -7996,7 +8025,7 @@ components:
           format: int64
         postal_code:
           description: 優先値
-          type: integer
+          type: string
           format: int64
         city:
           description: 優先度

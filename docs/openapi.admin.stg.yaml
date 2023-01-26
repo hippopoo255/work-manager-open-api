@@ -3381,7 +3381,7 @@ paths:
           integration.request.path.id: method.request.path.id
         passthroughBehavior: when_no_match
         type: http
-  /meeting_record/chart:
+  /minutes/chart:
     get:
       parameters:
         - name: Authorization
@@ -3419,7 +3419,7 @@ paths:
               schema:
                 type: array
                 items:
-                  $ref: '#/components/schemas/MeetingRecord'
+                  $ref: '#/components/schemas/Minutes'
         '401':
           description: Unauthorized
           headers:
@@ -3450,7 +3450,7 @@ paths:
                 $ref: '#/components/schemas/ForbiddenError'
       x-amazon-apigateway-integration:
         httpMethod: GET
-        uri: '${alb_uri}/api/admin/meeting_record/chart'
+        uri: '${alb_uri}/api/admin/minutes/chart'
         responses:
           '401':
             statusCode: '401'
@@ -3475,9 +3475,9 @@ paths:
           integration.request.querystring.created_by: method.request.querystring.created_by
         passthroughBehavior: when_no_templates
         type: http
-      operationId: getMeetingRecordChart
+      operationId: getMinutesChart
       description: 議事録チャート
-      summary: /meeting_record/chart-GET
+      summary: /minutes/chart-GET
       security:
         - work-manager-admin-authorizer: []
     options:
@@ -3519,8 +3519,8 @@ paths:
           application/json: '{"statusCode": 200}'
         passthroughBehavior: when_no_match
         type: mock
-      summary: /meeting_record-OPTIONS
-      operationId: optionMeetingRecord
+      summary: /minutes-OPTIONS
+      operationId: optionMinutes
     parameters: []
   /blog/chart:
     get:
@@ -4875,6 +4875,33 @@ components:
         - given_name_kana
         - family_name
         - family_name_kana
+    Agenda:
+      title: Agenda
+      type: object
+      description: 議事録の議題
+      x-stoplight:
+        id: 6fca855d34c97
+      properties:
+        id:
+          type: integer
+        minutes_id:
+          type: integer
+        subject:
+          type: string
+        description:
+          type: string
+        created_by:
+          $ref: '#/components/schemas/User'
+        created_at:
+          $ref: '#/components/schemas/DateFormat'
+        updated_at:
+          $ref: '#/components/schemas/DateFormat'
+      required:
+        - id
+        - minutes_id
+        - subject
+        - description
+        - created_by
     AuthenticatedAdmin:
       title: AuthenticatedAdmin
       type: object
@@ -5763,7 +5790,7 @@ components:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/MeetingRecord'
+            $ref: '#/components/schemas/Minutes'
         first_page_url:
           description: 1ページ目のURL
           type: string
@@ -5833,7 +5860,7 @@ components:
         - updated_at
         - created_by
     MeetingPlaceInputs:
-      title: MeetingRecordInputs
+      title: MinutesInputs
       description: 会議室投稿フォーム
       type: object
       properties:
@@ -5841,15 +5868,17 @@ components:
           type: string
       required:
         - name
-    MeetingRecord:
-      title: MeetingRecord
-      description: ミーティングレコード
+    Minutes:
+      title: Minutes
+      description: 議事録
       type: object
+      x-stoplight:
+        id: b34984bce68f9
       properties:
         id:
           type: integer
           format: int64
-        recorded_by:
+        created_by:
           $ref: '#/components/schemas/User'
         meeting_date:
           $ref: '#/components/schemas/DateFormat'
@@ -5866,27 +5895,27 @@ components:
           type: array
           items:
             $ref: '#/components/schemas/User'
-        decisions:
+        agendas:
           type: array
           items:
-            $ref: '#/components/schemas/MeetingDecision'
+            $ref: '#/components/schemas/Agenda'
         created_at:
           $ref: '#/components/schemas/DateFormat'
         updated_at:
           $ref: '#/components/schemas/DateFormat'
       required:
         - id
-        - recorded_by
+        - created_by
         - meeting_date
         - place
         - title
         - summary
         - members
-        - decisions
+        - agendas
         - created_at
         - updated_at
-    MeetingRecordInputs:
-      title: MeetingRecordInputs
+    MinutesInputs:
+      title: MinutesInputs
       description: 会議議事録投稿フォーム
       type: object
       properties:
@@ -5922,6 +5951,8 @@ components:
         - recorded_by
         - meeting_date
         - title
+      x-stoplight:
+        id: 4aa527a6cfe1b
     DepartmentInputs:
       title: DepartmentInputs
       description: 部署投稿フォーム
@@ -5935,8 +5966,8 @@ components:
           type: string
       required:
         - name
-    MeetingRecordPage:
-      title: MeetingRecordPage
+    MinutesPage:
+      title: MinutesPage
       description: 議事録一覧のページ（ページャつき）
       type: object
       x-examples:
@@ -5981,7 +6012,7 @@ components:
         data:
           type: array
           items:
-            $ref: '#/components/schemas/MeetingRecord'
+            $ref: '#/components/schemas/Minutes'
         first_page_url:
           description: 1ページ目のURL
           type: string
@@ -6028,6 +6059,8 @@ components:
         - prev_page_url
         - to
         - total
+      x-stoplight:
+        id: 91eccaa32e285
     MemberInputs:
       title: MemberInputs
       description: 共有相手用フォーム
@@ -6163,7 +6196,7 @@ components:
           format: int64
         postal_code:
           description: 優先値
-          type: integer
+          type: string
           format: int64
         city:
           description: 優先度
