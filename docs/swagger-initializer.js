@@ -1,8 +1,5 @@
-window.onload = function() {
+window.onload = function () {
   
-      
-      
-      
       //<editor-fold desc="Changeable Configuration Block">
       window.ui = SwaggerUIBundle({
         "dom_id": "#swagger-ui",
@@ -16,12 +13,9 @@ window.onload = function() {
         ],
         layout: "StandaloneLayout",
         queryConfigEnabled: false,
-        url: "/schema/stg/openapi.app.yaml",
+        url: "/schema/openapi.app.yaml",
       })
       
       //</editor-fold>
-
-
-
 
 };
