@@ -3518,7 +3518,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/MinutesPage'
+                allOf:
+                  - $ref: '#/components/schemas/Pager'
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Minutes'
         '401':
           description: Unauthorized
           headers:
@@ -7831,99 +7838,6 @@ components:
         - recorded_by
         - meeting_date
         - title
-    MinutesPage:
-      title: MinutesPage
-      description: 議事録一覧のページ（ページャつき）
-      type: object
-      x-examples:
-        example-1:
-          value:
-            data:
-              - id: 0
-                recorded_by:
-                  id: 0
-                  full_name: テスト 太郎
-                  given_name: 太郎
-                  family_name: テスト
-                  file_path: users/test1.jpg
-                  created_at: '2021-12-31 12:00:00'
-                  updated_at: '2021-12-31 12:00:00'
-                meeting_date: '2021-12-31 12:00:00'
-                place: string
-                title: 〇〇会議
-                summary: 〇〇会議の概要
-                members:
-                  - id: 0
-                    full_name: テスト 太郎
-                    given_name: 太郎
-                    family_name: テスト
-                    file_path: users/test1.jpg
-                    created_at: '2021-12-31 12:00:00'
-                    updated_at: '2021-12-31 12:00:00'
-                decisions: []
-                created_at: '2021-12-31 12:00:00'
-                updated_at: '2021-12-31 12:00:00'
-            first_page_url: string
-            from: 0
-            last_page: 0
-            last_page_url: string
-            next_page_url: string
-            path: string
-            per_page: 0
-            prev_page_url: string
-            to: 0
-            total: 0
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Minutes'
-        first_page_url:
-          description: 1ページ目のURL
-          type: string
-        from:
-          description: 現在のitemの開始位置
-          type: integer
-          nullable: true
-        last_page:
-          description: 最大ページ数
-          type: integer
-        last_page_url:
-          description: 最終ページのURL
-          type: string
-        next_page_url:
-          description: 次ページのURL
-          type: string
-          nullable: true
-        path:
-          description: 前ページのURL
-          type: string
-        per_page:
-          description: 1ページあたりのアイテム数
-          type: integer
-        prev_page_url:
-          description: 前ページのURL
-          type: string
-          nullable: true
-        to:
-          description: 現在のitemの終了位置
-          type: integer
-          nullable: true
-        total:
-          description: item総数
-          type: integer
-      required:
-        - data
-        - first_page_url
-        - from
-        - last_page
-        - last_page_url
-        - next_page_url
-        - path
-        - per_page
-        - prev_page_url
-        - to
-        - total
     MemberForm:
       title: MemberForm
       description: 共有相手用フォーム
