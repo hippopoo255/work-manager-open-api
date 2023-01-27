@@ -2988,7 +2988,14 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Pager'
+                allOf:
+                  - $ref: '#/components/schemas/Pager'
+                  - type: object
+                    properties:
+                      data:
+                        type: array
+                        items:
+                          $ref: '#/components/schemas/Minutes'
         '401':
           description: Unauthorized
           headers:
@@ -8566,13 +8573,6 @@ components:
       x-stoplight:
         id: 2ad6f38e6675a
       properties:
-        data:
-          type: array
-          description: データ
-          items:
-            anyOf:
-              - {}
-            type: object
         meta:
           $ref: '#/components/schemas/PagerMetaData'
         links:
@@ -8592,7 +8592,6 @@ components:
             prev:
               type: string
       required:
-        - data
         - meta
         - links
     PagerMetaData:
