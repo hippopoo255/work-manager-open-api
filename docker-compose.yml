@@ -12,7 +12,6 @@ services:
       - ./docs/openapi.admin.prod.yaml:/usr/share/nginx/html/openapi.admin.prod.yaml
     environment:
       API_URL: ../openapi.app.yaml
-    tty: true
     ports:
       - ${SWAGGER_UI_PORT:-18080}:8080
 
