@@ -2988,10 +2988,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  data:
-                    $ref: '#/components/schemas/MinutesPage'
+                $ref: '#/components/schemas/Pager'
         '401':
           description: Unauthorized
           headers:
